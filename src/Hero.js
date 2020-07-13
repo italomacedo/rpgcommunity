@@ -7,7 +7,7 @@ const knightStyle = {
   fontWeight: 'bold',
   cursor: 'move',
 }
-export const Knight = () => {
+export const Hero = () => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.KNIGHT },
     collect: (monitor) => ({
@@ -16,7 +16,7 @@ export const Knight = () => {
   })
   return (
     <>
-      <DragPreviewImage connect={preview} src="./resources/hero.png" width="62px" height="62px" />
+      <DragPreviewImage connect={preview} src="./resources/hero.png" width="100%" height="100%" />
       <div
         ref={drag}
         style={{
@@ -24,7 +24,7 @@ export const Knight = () => {
           opacity: isDragging ? 0.5 : 1,
         }}
       >
-        <img src="./resources/hero.png" width="62px" height="62px" alt="Hero"/>
+        <img src="./resources/hero.png" width="100%" height="100%" alt="Hero"/>
       </div>
     </>
   )
