@@ -4,15 +4,12 @@ import { Square } from './Square'
 import { canMove, move } from './Game'
 import { ItemTypes } from './ItemTypes'
 import { Overlay } from './Overlay'
-export const BoardSquare = ({ x, y, type, children }) => {
-    if(children) {
-        console.log(children);
-    }
 
+export const BoardSquare = ({ x, y, type, children }) => {
     const [{ isOver, canDrop }, drop] = useDrop({
         accept: ItemTypes.KNIGHT,
         canDrop: () => canMove(x, y),
-        drop: () => move(x, y),
+        drop: () => move(children, x, y),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop(),

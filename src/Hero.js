@@ -2,18 +2,25 @@ import React from 'react'
 import { DragPreviewImage, useDrag } from 'react-dnd'
 import { ItemTypes } from './ItemTypes'
 
-const knightStyle = {
-  fontSize: 40,
-  fontWeight: 'bold',
-  cursor: 'move',
-}
-export const Hero = () => {
+import { knightSide } from './Game';
+
+import RPGCommunitySideToRotation from './utils/RPGCommunitySideRotationUtils';
+
+function Hero(props) {
+  var knightStyle = {
+    fontSize: 40,
+    fontWeight: 'bold',
+    cursor: 'move',
+    transform: `rotate(${RPGCommunitySideToRotation.sideToRotation(knightSide)})`
+  }
+
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.KNIGHT },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   })
+
   return (
     <>
       <DragPreviewImage connect={preview} src="./resources/hero.png" width="100%" height="100%" />
@@ -28,4 +35,4 @@ export const Hero = () => {
       </div>
     </>
   )
-}
+} export default Hero;

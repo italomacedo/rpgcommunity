@@ -1,6 +1,6 @@
 import React from 'react'
 import { BoardSquare } from './BoardSquare'
-import { Hero } from './Hero'
+import Hero from './Hero'
 /** Styling properties applied to the board element */
 const boardStyle = {
     width: '100%',
@@ -31,7 +31,12 @@ export const Board = ({ boardSize, knightPosition: [knightX, knightY], map }) =>
 
     function renderPiece(x, y) {
         const isKnightHere = x === knightX && y === knightY
-        return isKnightHere ? <Hero /> : null
+
+        if(isKnightHere) {
+            return <Hero/>;
+        } else {
+            return null;
+        }
     }
 
     const squares = []
