@@ -1,21 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { DragPreviewImage, useDrag } from 'react-dnd'
-import { ItemTypes } from './ItemTypes'
-
-import { knightSide } from './Game';
-
 import RPGCommunitySideToRotation from './utils/RPGCommunitySideRotationUtils';
 
-function Hero(props) {
+function TokenView(props) {
+  const [tokenImage, setTokenImage] = useState(props.tokenImage)
+  const [type, setType] = useState(props.type);
+  const [side,setSide] = useState(props.side);
+
   var knightStyle = {
     fontSize: 40,
     fontWeight: 'bold',
     cursor: 'move',
-    transform: `rotate(${RPGCommunitySideToRotation.sideToRotation(knightSide)})`
+    transform: `rotate(${RPGCommunitySideToRotation.sideToRotation(side)})`
   }
 
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type: ItemTypes.KNIGHT },
+    item: { type: "token" },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -23,7 +23,7 @@ function Hero(props) {
 
   return (
     <>
-      <DragPreviewImage connect={preview} src="./resources/hero.png" width="100%" height="100%" />
+      <DragPreviewImage connect={preview} src={tokenImage} width="100%" height="100%" />
       <div
         ref={drag}
         style={{
@@ -31,8 +31,8 @@ function Hero(props) {
           opacity: isDragging ? 0.5 : 1,
         }}
       >
-        <img src="./resources/hero.png" width="100%" height="100%" alt="Hero"/>
+        <img src={tokenImage} width="100%" height="100%" alt="Hero"/>
       </div>
     </>
   )
-} export default Hero;
+} export default TokenView;

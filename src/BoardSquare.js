@@ -2,14 +2,13 @@ import React from 'react'
 import { useDrop } from 'react-dnd'
 import { Square } from './Square'
 import { canMove, move } from './Game'
-import { ItemTypes } from './ItemTypes'
 import { Overlay } from './Overlay'
 
 export const BoardSquare = ({ x, y, type, children }) => {
     const [{ isOver, canDrop }, drop] = useDrop({
-        accept: ItemTypes.KNIGHT,
-        canDrop: () => canMove(x, y),
-        drop: () => move(children, x, y),
+        accept: "token",
+        canDrop: () => canMove(children, x, y),
+        drop: () => move(x, y),
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
             canDrop: !!monitor.canDrop(),

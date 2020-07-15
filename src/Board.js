@@ -1,7 +1,7 @@
 import React from 'react'
 import { BoardSquare } from './BoardSquare'
-import Hero from './Hero'
-/** Styling properties applied to the board element */
+import { createToken } from './TokenFactory';
+
 const boardStyle = {
     width: '100%',
     height: '100%',
@@ -9,11 +9,7 @@ const boardStyle = {
     flexWrap: 'wrap',
 }
 
-/**
- * The chessboard component
- * @param props The react props
- */
-export const Board = ({ boardSize, knightPosition: [knightX, knightY], map }) => {
+export const Board = ({ state, boardSize, map }) => {
     const squareStyle = { width: (100 / boardSize) + '%', height: (100 / boardSize) + '%' }
 
     function renderSquare(i) {
@@ -30,12 +26,10 @@ export const Board = ({ boardSize, knightPosition: [knightX, knightY], map }) =>
     }
 
     function renderPiece(x, y) {
-        const isKnightHere = x === knightX && y === knightY
-
-        if(isKnightHere) {
-            return <Hero/>;
-        } else {
-            return null;
+        for(var i = 0; i < state.length; i++) {
+            if(state[i].position[0] === x && state[i].position[1] === y) {
+                return createToken([x,y], state[i].side, state[i].tokenType);
+            }
         }
     }
 
